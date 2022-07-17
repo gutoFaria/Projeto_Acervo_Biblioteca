@@ -13,7 +13,7 @@ public class Conectar {
     private static final String PORT = "3306";
     private static final String USER = "admin";
     private static final String PASS = "admin";
-    private static final String DB = "consultorio";
+    private static final String DB = "bu";
     private static final String TIMEZONE = "useTimezone=true&serverTimezone=UTC";
     
     private static final String conexao = URL + ":" + PORT + "/" + DB + "?" + TIMEZONE;
