@@ -43,6 +43,7 @@ public class FormLogin extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 0, 51));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 204));
 
@@ -180,10 +181,15 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void btnAcessarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcessarActionPerformed
         AdminController ac = new AdminController();
+        String senha = String.valueOf(pfSenha.getPassword());
         
         try {
-            boolean acesso = ac.Login(txtAdmin.getText(), pfSenha.getPassword().toString());
+            boolean acesso = ac.Login(txtAdmin.getText(),senha);
             if(acesso == true){
+               
+                FormTelaInicial formTelaInicial = new FormTelaInicial();
+                formTelaInicial.setVisible(true);
+                this.setVisible(false);
                 JOptionPane.showMessageDialog(null,"Bem vindo!");
             }else{
                 lblErroAdminSenha.setText("admin ou senha incorretos");

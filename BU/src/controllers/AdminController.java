@@ -13,15 +13,18 @@ public class AdminController {
     public boolean Login(String cpf,String senha){
         Connection con = Conectar.getConectar();
         
-        
-        String sql = "select * from admin where cpf ='"+cpf+"' and senha='"+senha+"' ";
+        System.out.println(cpf);
+        System.out.println(senha);
+        String sql = "select * from admin where cpf = ? and senha = ? ";
         //String sql = "select * from admin where cpf=" ";
         ResultSet res = null;
         
         try(PreparedStatement smt = con.prepareStatement(sql)){
-            res= smt.executeQuery(sql);
-            System.out.println(res);
-            if(res != null){
+            smt.setString(1, cpf);
+            smt.setString(2,senha);
+            res= smt.executeQuery();
+
+            if(res.next()){
                 return true;
             }
         }catch(Exception ex){
