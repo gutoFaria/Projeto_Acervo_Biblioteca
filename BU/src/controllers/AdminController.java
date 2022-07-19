@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import models.Admin;
 
 
 public class AdminController {
@@ -33,4 +32,5 @@ public class AdminController {
         
         return false;
     }
+    
 }
