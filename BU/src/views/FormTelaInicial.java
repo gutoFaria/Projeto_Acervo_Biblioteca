@@ -60,8 +60,6 @@ public class FormTelaInicial extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        txtPerquisar1 = new javax.swing.JTextField();
-        btnPesquisar1 = new javax.swing.JButton();
         btnAtualizarAluno2 = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnAtualizar = new javax.swing.JButton();
@@ -106,7 +104,12 @@ public class FormTelaInicial extends javax.swing.JFrame {
         btnGerenciarLivros.setBackground(new java.awt.Color(102, 255, 102));
         btnGerenciarLivros.setForeground(new java.awt.Color(0, 0, 0));
         btnGerenciarLivros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images_icons/livrosg.png"))); // NOI18N
-        btnGerenciarLivros.setText("<html>\nGerenciar <br/>livros\n</html>\n");
+        btnGerenciarLivros.setText("<html>\nGerenciar <br/>acervo\n</html>\n");
+        btnGerenciarLivros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerenciarLivrosActionPerformed(evt);
+            }
+        });
 
         btnGerenciarEmprestimo.setBackground(new java.awt.Color(102, 255, 102));
         btnGerenciarEmprestimo.setForeground(new java.awt.Color(0, 0, 0));
@@ -220,8 +223,6 @@ public class FormTelaInicial extends javax.swing.JFrame {
             }
         });
 
-        btnPesquisar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images_icons/pesquisar.png"))); // NOI18N
-
         btnAtualizarAluno2.setBackground(new java.awt.Color(0, 153, 0));
         btnAtualizarAluno2.setForeground(new java.awt.Color(255, 255, 255));
         btnAtualizarAluno2.setText("atualizar aluno");
@@ -245,11 +246,7 @@ public class FormTelaInicial extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(btnPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPerquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAtualizarAluno2)
                 .addGap(18, 18, 18)
                 .addComponent(btnExcluir)
@@ -259,12 +256,9 @@ public class FormTelaInicial extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnPesquisar1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtPerquisar1)
-                        .addComponent(btnAtualizarAluno2)
-                        .addComponent(btnExcluir)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAtualizarAluno2)
+                    .addComponent(btnExcluir))
                 .addContainerGap())
         );
 
@@ -404,39 +398,59 @@ public class FormTelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefoneActionPerformed
 
+    
+    private boolean ConfereTextField(){
+        if(txtMatricula.getText().isEmpty() || txtCpf.getText().isEmpty() || txtNome.getText().isEmpty() 
+                || txtCurso.getText().isEmpty() || txtEndereco.getText().isEmpty() || txtTelefone.getText().isEmpty()){
+            return false;
+        }
+        return true;
+    }
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        //model aluno
-        Aluno a = new Aluno();
+        boolean verifica  = ConfereTextField();
         
-        a.setMatricula(Integer.parseInt(txtMatricula.getText()));
-        a.setCpf(txtCpf.getText());
-        a.setNome(txtNome.getText());
-        a.setCurso(txtCurso.getText());
-        a.setEndereco(txtEndereco.getText());
-        a.setTelefone(txtTelefone.getText());
-        
-        //classe controller
-        AlunoController ac = new AlunoController();
-        ac.CadastrarAluno(a);
-        PreencherTabela();
+        if(verifica){
+            //model aluno
+            Aluno a = new Aluno();
+
+            a.setMatricula(Integer.parseInt(txtMatricula.getText()));
+            a.setCpf(txtCpf.getText());
+            a.setNome(txtNome.getText());
+            a.setCurso(txtCurso.getText());
+            a.setEndereco(txtEndereco.getText());
+            a.setTelefone(txtTelefone.getText());
+
+            //classe controller
+            AlunoController ac = new AlunoController();
+            ac.CadastrarAluno(a);
+            PreencherTabela();
+        }else{
+            JOptionPane.showMessageDialog(null,"Preencha todos os campos!");
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        Aluno a = new Aluno();
+        boolean verifica  = ConfereTextField();
         
-        a.setMatricula(Integer.parseInt(txtMatricula.getText()));
-        a.setCpf(txtCpf.getText());
-        a.setNome(txtNome.getText());
-        a.setCurso(txtCurso.getText());
-        a.setEndereco(txtEndereco.getText());
-        a.setTelefone(txtTelefone.getText());
+        if(verifica){
+            Aluno a = new Aluno();
         
-        AlunoController ac = new AlunoController();
-        ac.AtualizarAluno(a);
-        
-        PreencherTabela();
-        btnSalvar.setVisible(true);
-        btnAtualizar.setVisible(false);
+            a.setMatricula(Integer.parseInt(txtMatricula.getText()));
+            a.setCpf(txtCpf.getText());
+            a.setNome(txtNome.getText());
+            a.setCurso(txtCurso.getText());
+            a.setEndereco(txtEndereco.getText());
+            a.setTelefone(txtTelefone.getText());
+
+            AlunoController ac = new AlunoController();
+            ac.AtualizarAluno(a);
+
+            PreencherTabela();
+            btnSalvar.setVisible(true);
+            btnAtualizar.setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(null,"Preencha todos os campos!");
+        }   
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -462,7 +476,21 @@ public class FormTelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAtualizarAluno2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarAluno2ActionPerformed
-        // TODO add your handling code here:
+        int opcao = tabelaAluno.getSelectedRow();
+        if(opcao >=0){
+            txtMatricula.setText(tabelaAluno.getValueAt(opcao,0).toString());
+            txtCpf.setText( tabelaAluno.getValueAt(opcao,1).toString());
+            txtNome.setText(tabelaAluno.getValueAt(opcao,2).toString());
+            txtCurso.setText(tabelaAluno.getValueAt(opcao,3).toString());
+            txtEndereco.setText(tabelaAluno.getValueAt(opcao,4).toString());
+            txtTelefone.setText(tabelaAluno.getValueAt(opcao,5).toString());
+            
+            //deixar o botao atualizar visivel
+            btnAtualizar.setVisible(true);
+            btnSalvar.setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(null,"Selecione uma linha!");
+        }
     }//GEN-LAST:event_btnAtualizarAluno2ActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -476,6 +504,14 @@ public class FormTelaInicial extends javax.swing.JFrame {
         btnAtualizar.setVisible(false);
         btnSalvar.setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnGerenciarLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarLivrosActionPerformed
+        //abre o form de gerenciamento do acervo
+        FormTelaGLivros formLivros = new FormTelaGLivros();
+        formLivros.setVisible(true);
+        //esconde o form que está aberto
+        this.setVisible(false);
+    }//GEN-LAST:event_btnGerenciarLivrosActionPerformed
     
     public void PreencherTabela(){
         AlunoController ac = new AlunoController();
@@ -538,7 +574,6 @@ public class FormTelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btnGerenciarAlunos;
     private javax.swing.JButton btnGerenciarEmprestimo;
     private javax.swing.JButton btnGerenciarLivros;
-    private javax.swing.JButton btnPesquisar1;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
@@ -561,7 +596,6 @@ public class FormTelaInicial extends javax.swing.JFrame {
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtPerquisar1;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
